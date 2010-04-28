@@ -1,0 +1,31 @@
+CCR Binder
+=============
+
+
+Xml binding classes for Continuity of Care Record using castor. 
+provides helper methods for easy setting and serialization to XML
+
+Example:
+========
+public class CCRBinder {	
+	public String user2CCR(IUser user, List<ILabResult> labs) throws MarshalException, ValidationException{
+		CCRBuilder cb = new CCRBuilder();
+		cb.setUser(user);
+		for(ILabResult lab : labs){
+			cb.addLabResult(lab);
+		}
+		return cb.toXml();
+	}
+}
+
+mvn commands
+============
+mvn castor:generate
+mvn test
+mvn install
+
+
+Generate Bindings
+================
+to get warinings on configuration (for better name conflict resolution)
+add <warnings>true</warnings> to castor-maven-login configuration in pom.xml
