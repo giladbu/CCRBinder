@@ -1,0 +1,38 @@
+<binding>
+  <elementBinding name="/Actor{urn:astm-org:CCR}">
+    <java-class name="ActorReference"/>
+  </elementBinding>
+
+  <elementBinding name="/ContinuityOfCareRecord{urn:astm-org:CCR}/Actors/Actor">
+    <java-class name="ActorsActor"/>
+  </elementBinding>
+
+  <elementBinding name="/complexType:FunctionType/Test">
+    <java-class name="FunctionTest"/>
+  </elementBinding>
+
+  <elementBinding name="/complexType:ResultType/Test">
+    <java-class name="TestInResult"/>
+  </elementBinding>
+  
+  <elementBinding name="/Products{urn:astm-org:CCR}/Product">
+    <java-class name="StructuredProduct"/>
+  </elementBinding>
+
+  <elementBinding name="/Agent{urn:astm-org:CCR}/Products/Product">
+    <java-class name="StructuredProduct"/>
+  </elementBinding>
+
+  <elementBinding name="/complexType:StructuredProductType/Product">
+    <java-class name="MedProduct"/>
+  </elementBinding>
+  <elementBinding name="/ContinuityOfCareRecord{urn:astm-org:CCR}/Body/Medications/Medication">
+    <java-class name="Med"/>
+  </elementBinding>
+  <elementBinding name="/ContinuityOfCareRecord{urn:astm-org:CCR}/Body/Medications/Medication/Product">
+    <java-class name="MedProduct"/>
+  </elementBinding>
+  <elementBinding name="/complexType:FamilyHistoryType/Problem">
+    <java-class name="FamilyHistoryProblem"/>
+  </elementBinding>
+</binding>
