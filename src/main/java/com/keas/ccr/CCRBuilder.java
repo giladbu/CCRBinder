@@ -1,5 +1,6 @@
 package com.keas.ccr;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,6 +47,7 @@ import org.astm.ccr.TestResult;
 import org.astm.ccr.Type;
 import org.astm.ccr.Units;
 import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.Marshaller;
 import org.exolab.castor.xml.ValidationException;
 
 public class CCRBuilder implements ICCRBuilder{
@@ -55,6 +57,7 @@ public class CCRBuilder implements ICCRBuilder{
 	private static final String START_DATE = "Start Date";
 	private static final String ACTIVE = "ACTIVE";
 	ContinuityOfCareRecord cCCR = new ContinuityOfCareRecord();
+
 
 	@Override
 	public void addFamilyHistory(IFamilyHistoryProblem element){
@@ -164,13 +167,17 @@ public class CCRBuilder implements ICCRBuilder{
 		vMedProduct.setProductName(productName);
 		medication.addMedProduct(vMedProduct);
 		//add dates
-		medication.addDateTime(getDate(med.getStartDate(), START_DATE));
-		medication.addDateTime(getDate(med.getEndDate(), STOP_DATE));
+		if(med.getStartDate() != null){
+			medication.addDateTime(getDate(med.getStartDate(), START_DATE));
+		}
+		if(med.getEndDate() != null){
+			medication.addDateTime(getDate(med.getEndDate(), STOP_DATE));
+		}
 		//add dosage
 		Directions vDirections = new Directions();
 		Direction vDirection = new Direction();
 		Dose vDose = new Dose();
-		vDose.setValue(med.getDosage().toPlainString());
+		vDose.setValue(med.getDosage() == null?null:med.getDosage().toPlainString());
 		vDirection.addDose(vDose);
 		//add frequency
 		Frequency vFrequency = new Frequency();
@@ -311,8 +318,18 @@ public class CCRBuilder implements ICCRBuilder{
 
 	@Override
 	public String toXml() throws MarshalException, ValidationException {
+		return toXml(true);
+	}
+	
+	@Override
+	public String toXml(boolean asDocument) throws MarshalException, ValidationException {
 		StringWriter out = new StringWriter();
-		cCCR.marshal(out);
+		Marshaller m = new Marshaller();
+		m.setMarshalAsDocument(asDocument);
+		try {
+			m.setWriter(out);
+		} catch (IOException e) {}
+		m.marshal(cCCR);
 		return out.toString();
 	}
 

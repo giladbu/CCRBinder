@@ -13,5 +13,6 @@ public interface ICCRBuilder {
 	public void addSocialHistory(ICondition element);
 	public void addFamilyHistory(IFamilyHistoryProblem element);
 	public String toXml() throws MarshalException, ValidationException;
+	public String toXml(boolean asDocument) throws MarshalException,ValidationException;
 	public ContinuityOfCareRecord toCCR();
 }

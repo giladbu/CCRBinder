@@ -133,7 +133,7 @@ public class CCRBuilderTest extends TestCase {
 			String xml = cCCRBuilder.toXml();
 			assertTrue(
 					xml.contains(
-							String.format("<DateTime><Type><Text>Start Date</Text></Type><ExactDateTime>%s</ExactDateTime></DateTime><DateTime>",
+							String.format("<DateTime><Type><Text>Start Date</Text></Type><ExactDateTime>%s</ExactDateTime></DateTime>",
 									new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(med.getStartDate())
 									)));
 			assertTrue(
